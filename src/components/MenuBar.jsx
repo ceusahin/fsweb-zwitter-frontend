@@ -9,11 +9,13 @@ import {
   FaUser,
   FaEllipsisH,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import profilePic from "../photos/cv-pp.jpg";
-import { TbSquareRoundedLetterZ, TbLetterZ } from "react-icons/tb";
+import { TbLetterZ } from "react-icons/tb";
+import { useAuth } from "../context/AuthContext";
 
 const MenuBar = () => {
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div className="lg:h-screen lg:py-6 lg:flex lg:flex-col lg:items-center lg:justify-between lg:bg-gray-50 lg:shadow-lg">
       <section className="">

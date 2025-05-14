@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const [isRegistered, setIsRegistered] = useState(false);
   const [formData, setFormData] = useState({
     userName: "",
     fullName: "",
@@ -20,6 +23,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log(formData);
     axios
       .post("http://localhost:9000/api/zwitter/auth/user/register", formData, {
         headers: {
@@ -27,18 +31,23 @@ const RegisterPage = () => {
         },
       })
       .then((response) => {
+        setIsRegistered(true);
         console.log("Registration successful:", response.data);
       })
       .catch((error) => {
         console.error("Error during registration:", error.response);
       });
+
+    setTimeout(() => {
+      navigate("/main");
+    }, 5000);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center gap-40 min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg w-96"
+        className="bg-white p-8 rounded-2xl shadow-lg w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
@@ -48,7 +57,7 @@ const RegisterPage = () => {
           placeholder="Username"
           value={formData.userName}
           onChange={handleChange}
-          className="w-full p-3 mb-3 border border-gray-300 rounded"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-xl"
           required
         />
 
@@ -58,7 +67,7 @@ const RegisterPage = () => {
           placeholder="Full Name"
           value={formData.fullName}
           onChange={handleChange}
-          className="w-full p-3 mb-3 border border-gray-300 rounded"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-xl"
           required
         />
 
@@ -68,7 +77,7 @@ const RegisterPage = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-3 mb-3 border border-gray-300 rounded"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-xl"
           required
         />
 
@@ -78,7 +87,7 @@ const RegisterPage = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-3 mb-3 border border-gray-300 rounded"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-xl"
           required
         />
 
@@ -87,16 +96,37 @@ const RegisterPage = () => {
           placeholder="Biography"
           value={formData.biography}
           onChange={handleChange}
-          className="w-full p-3 mb-3 border border-gray-300 rounded"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-xl"
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-3 rounded font-bold hover:bg-blue-600"
+          className="w-full bg-black text-white p-3 rounded-xl font-bold cursor-pointer hover:bg-gray-800"
         >
           Register
         </button>
       </form>
+      {isRegistered && (
+        <div className="mt-4 bg-gray-100 p-10 rounded-2xl shadow-lg">
+          <p className="text-green-700 text-2xl ">Registration successful!</p>
+          <p className="text-green-700 text-2xl mt-4">
+            In 5 seconds, u will be redirected to the Zwitter page!
+          </p>
+          <div>
+            <p className="mt-4 text-lg">
+              <span className="text-green-700">Email: </span> {formData.email}
+            </p>
+            <p className="mt-4 text-lg">
+              <span className="text-green-700">User Name: </span>
+              {formData.userName}
+            </p>
+            <p className="mt-4 text-lg">
+              <span className="text-green-700">Full Name: </span>
+              {formData.fullName}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -23,15 +23,18 @@ const WelcomePage = () => {
           <div className="text-sm font-medium">
             Do you already have an account?
           </div>
-          <button className="border rounded-full py-2 px-4 w-80 shadow-md cursor-pointer">
+          <button
+            className="border rounded-full py-2 px-4 w-80 shadow-md cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
             Login
           </button>
-          <button
+          {/* <button
             className="border rounded-full py-2 px-4 w-80 shadow-md cursor-pointer"
             onClick={() => navigate("/main")}
           >
             Go to Zwitter
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
