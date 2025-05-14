@@ -25,9 +25,9 @@ const WelcomePage = () => {
           </div>
           <button
             className="border rounded-full py-2 px-4 w-80 shadow-md cursor-pointer"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/main")}
           >
-            Login
+            Login (Click me)
           </button>
           {/* <button
             className="border rounded-full py-2 px-4 w-80 shadow-md cursor-pointer"
